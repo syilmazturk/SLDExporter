@@ -1,0 +1,20 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>SLDExporter</Name>
+  <AddInID>{11118367-b15a-4756-ad31-be3d57fd8875}</AddInID>
+  <Description>Export layer symbology as SLD document or create SLD style on published GeoServer layer.</Description>
+  <Version>1.0</Version>
+  <Image>Images\SLDExporter_1.png</Image>
+  <Author>Serhat YILMAZTURK</Author>
+  <Company>Universal Information Technologies Ltd.</Company>
+  <Date>28.9.2016</Date>
+  <Targets>
+    <Target name="Desktop" version="10.3" />
+  </Targets>
+  <AddIn language="CLR4.5" library="SLDExporter.dll" namespace="SLDExporter">
+    <ArcMap>
+      <Commands>
+        <Button id="Universal_Information_Technologies_SLDExporter_SLDExporter" class="SLDExporter" message="Export layer symbology as SLD document or create SLD style on published GeoServer layer." caption="SLDExporter" tip="SLDExporter" category="Add-In Controls" image="Images\SLDExporter.png" />
+      </Commands>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
