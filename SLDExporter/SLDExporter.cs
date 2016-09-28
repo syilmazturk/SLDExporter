@@ -14,10 +14,9 @@ namespace SLDExporter
 
         protected override void OnClick()
         {
-            //
-            //  TODO: Sample code showing how to access button host
-            //
-            
+            SLDExporterForm sldGUI = new SLDExporterForm();
+            sldGUI.Show();
+
             ArcMap.Application.CurrentTool = null;
         }
         protected override void OnUpdate()
