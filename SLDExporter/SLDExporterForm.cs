@@ -26,5 +26,25 @@ namespace SLDExporter
         {
 
         }
+
+        private void buttonGSconnect_Click(object sender, EventArgs e)
+        {
+            string geoserverurl = textBoxGSurl.Text.Trim();
+            string username = textBoxGSusername.Text.Trim();
+            string password = textBoxGSpassword.Text.Trim();
+
+
+
+        }
+
+        private void buttonGSpublishSLD_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonGSaddStyleToLayer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
