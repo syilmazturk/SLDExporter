@@ -92,14 +92,14 @@
             this.textBoxGSurl.Location = new System.Drawing.Point(230, 50);
             this.textBoxGSurl.Name = "textBoxGSurl";
             this.textBoxGSurl.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSurl.TabIndex = 15;
+            this.textBoxGSurl.TabIndex = 0;
             // 
             // buttonGSaddStyleToLayer
             // 
             this.buttonGSaddStyleToLayer.Location = new System.Drawing.Point(245, 355);
             this.buttonGSaddStyleToLayer.Name = "buttonGSaddStyleToLayer";
             this.buttonGSaddStyleToLayer.Size = new System.Drawing.Size(165, 23);
-            this.buttonGSaddStyleToLayer.TabIndex = 14;
+            this.buttonGSaddStyleToLayer.TabIndex = 9;
             this.buttonGSaddStyleToLayer.Text = "Add Style To Layer";
             this.buttonGSaddStyleToLayer.UseVisualStyleBackColor = true;
             this.buttonGSaddStyleToLayer.Click += new System.EventHandler(this.buttonGSaddStyleToLayer_Click);
@@ -127,7 +127,7 @@
             this.textBoxGSsldName.Location = new System.Drawing.Point(230, 217);
             this.textBoxGSsldName.Name = "textBoxGSsldName";
             this.textBoxGSsldName.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSsldName.TabIndex = 11;
+            this.textBoxGSsldName.TabIndex = 5;
             // 
             // labelGSworkspaces
             // 
@@ -145,7 +145,7 @@
             this.comboBoxGSstyles.Location = new System.Drawing.Point(230, 325);
             this.comboBoxGSstyles.Name = "comboBoxGSstyles";
             this.comboBoxGSstyles.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSstyles.TabIndex = 9;
+            this.comboBoxGSstyles.TabIndex = 8;
             // 
             // comboBoxGSworkspaces
             // 
@@ -154,14 +154,14 @@
             this.comboBoxGSworkspaces.Location = new System.Drawing.Point(230, 184);
             this.comboBoxGSworkspaces.Name = "comboBoxGSworkspaces";
             this.comboBoxGSworkspaces.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSworkspaces.TabIndex = 8;
+            this.comboBoxGSworkspaces.TabIndex = 4;
             // 
             // buttonGSpublishSLD
             // 
             this.buttonGSpublishSLD.Location = new System.Drawing.Point(284, 245);
             this.buttonGSpublishSLD.Name = "buttonGSpublishSLD";
             this.buttonGSpublishSLD.Size = new System.Drawing.Size(126, 23);
-            this.buttonGSpublishSLD.TabIndex = 7;
+            this.buttonGSpublishSLD.TabIndex = 6;
             this.buttonGSpublishSLD.Text = "Publish SLD";
             this.buttonGSpublishSLD.UseVisualStyleBackColor = true;
             this.buttonGSpublishSLD.Click += new System.EventHandler(this.buttonGSpublishSLD_Click);
@@ -182,14 +182,14 @@
             this.comboBoxGSlayers.Location = new System.Drawing.Point(230, 295);
             this.comboBoxGSlayers.Name = "comboBoxGSlayers";
             this.comboBoxGSlayers.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSlayers.TabIndex = 5;
+            this.comboBoxGSlayers.TabIndex = 7;
             // 
             // buttonGSconnect
             // 
             this.buttonGSconnect.Location = new System.Drawing.Point(309, 134);
             this.buttonGSconnect.Name = "buttonGSconnect";
             this.buttonGSconnect.Size = new System.Drawing.Size(101, 23);
-            this.buttonGSconnect.TabIndex = 4;
+            this.buttonGSconnect.TabIndex = 3;
             this.buttonGSconnect.Text = "Connect";
             this.buttonGSconnect.UseVisualStyleBackColor = true;
             this.buttonGSconnect.Click += new System.EventHandler(this.buttonGSconnect_Click);
@@ -218,7 +218,7 @@
             this.textBoxGSpassword.Location = new System.Drawing.Point(230, 106);
             this.textBoxGSpassword.Name = "textBoxGSpassword";
             this.textBoxGSpassword.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSpassword.TabIndex = 1;
+            this.textBoxGSpassword.TabIndex = 2;
             this.textBoxGSpassword.UseSystemPasswordChar = true;
             // 
             // textBoxGSusername
@@ -226,7 +226,7 @@
             this.textBoxGSusername.Location = new System.Drawing.Point(230, 78);
             this.textBoxGSusername.Name = "textBoxGSusername";
             this.textBoxGSusername.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSusername.TabIndex = 0;
+            this.textBoxGSusername.TabIndex = 1;
             // 
             // buttonExportSLD
             // 
