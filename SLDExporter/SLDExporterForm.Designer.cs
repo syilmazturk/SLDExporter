@@ -74,7 +74,7 @@
             this.groupBoxPublishSLD.Location = new System.Drawing.Point(12, 85);
             this.groupBoxPublishSLD.Name = "groupBoxPublishSLD";
             this.groupBoxPublishSLD.Size = new System.Drawing.Size(416, 391);
-            this.groupBoxPublishSLD.TabIndex = 0;
+            this.groupBoxPublishSLD.TabIndex = 1;
             this.groupBoxPublishSLD.TabStop = false;
             this.groupBoxPublishSLD.Text = "Create SLD style on published GeoServer Layer";
             // 
@@ -92,14 +92,14 @@
             this.textBoxGSurl.Location = new System.Drawing.Point(230, 50);
             this.textBoxGSurl.Name = "textBoxGSurl";
             this.textBoxGSurl.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSurl.TabIndex = 0;
+            this.textBoxGSurl.TabIndex = 1;
             // 
             // buttonGSaddStyleToLayer
             // 
             this.buttonGSaddStyleToLayer.Location = new System.Drawing.Point(245, 355);
             this.buttonGSaddStyleToLayer.Name = "buttonGSaddStyleToLayer";
             this.buttonGSaddStyleToLayer.Size = new System.Drawing.Size(165, 23);
-            this.buttonGSaddStyleToLayer.TabIndex = 9;
+            this.buttonGSaddStyleToLayer.TabIndex = 10;
             this.buttonGSaddStyleToLayer.Text = "Add Style To Layer";
             this.buttonGSaddStyleToLayer.UseVisualStyleBackColor = true;
             this.buttonGSaddStyleToLayer.Click += new System.EventHandler(this.buttonGSaddStyleToLayer_Click);
@@ -127,7 +127,7 @@
             this.textBoxGSsldName.Location = new System.Drawing.Point(230, 217);
             this.textBoxGSsldName.Name = "textBoxGSsldName";
             this.textBoxGSsldName.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSsldName.TabIndex = 5;
+            this.textBoxGSsldName.TabIndex = 6;
             // 
             // labelGSworkspaces
             // 
@@ -145,7 +145,7 @@
             this.comboBoxGSstyles.Location = new System.Drawing.Point(230, 325);
             this.comboBoxGSstyles.Name = "comboBoxGSstyles";
             this.comboBoxGSstyles.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSstyles.TabIndex = 8;
+            this.comboBoxGSstyles.TabIndex = 9;
             // 
             // comboBoxGSworkspaces
             // 
@@ -154,14 +154,14 @@
             this.comboBoxGSworkspaces.Location = new System.Drawing.Point(230, 184);
             this.comboBoxGSworkspaces.Name = "comboBoxGSworkspaces";
             this.comboBoxGSworkspaces.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSworkspaces.TabIndex = 4;
+            this.comboBoxGSworkspaces.TabIndex = 5;
             // 
             // buttonGSpublishSLD
             // 
             this.buttonGSpublishSLD.Location = new System.Drawing.Point(284, 245);
             this.buttonGSpublishSLD.Name = "buttonGSpublishSLD";
             this.buttonGSpublishSLD.Size = new System.Drawing.Size(126, 23);
-            this.buttonGSpublishSLD.TabIndex = 6;
+            this.buttonGSpublishSLD.TabIndex = 7;
             this.buttonGSpublishSLD.Text = "Publish SLD";
             this.buttonGSpublishSLD.UseVisualStyleBackColor = true;
             this.buttonGSpublishSLD.Click += new System.EventHandler(this.buttonGSpublishSLD_Click);
@@ -182,14 +182,14 @@
             this.comboBoxGSlayers.Location = new System.Drawing.Point(230, 295);
             this.comboBoxGSlayers.Name = "comboBoxGSlayers";
             this.comboBoxGSlayers.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSlayers.TabIndex = 7;
+            this.comboBoxGSlayers.TabIndex = 8;
             // 
             // buttonGSconnect
             // 
             this.buttonGSconnect.Location = new System.Drawing.Point(309, 134);
             this.buttonGSconnect.Name = "buttonGSconnect";
             this.buttonGSconnect.Size = new System.Drawing.Size(101, 23);
-            this.buttonGSconnect.TabIndex = 3;
+            this.buttonGSconnect.TabIndex = 4;
             this.buttonGSconnect.Text = "Connect";
             this.buttonGSconnect.UseVisualStyleBackColor = true;
             this.buttonGSconnect.Click += new System.EventHandler(this.buttonGSconnect_Click);
@@ -218,7 +218,7 @@
             this.textBoxGSpassword.Location = new System.Drawing.Point(230, 106);
             this.textBoxGSpassword.Name = "textBoxGSpassword";
             this.textBoxGSpassword.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSpassword.TabIndex = 2;
+            this.textBoxGSpassword.TabIndex = 3;
             this.textBoxGSpassword.UseSystemPasswordChar = true;
             // 
             // textBoxGSusername
@@ -226,16 +226,17 @@
             this.textBoxGSusername.Location = new System.Drawing.Point(230, 78);
             this.textBoxGSusername.Name = "textBoxGSusername";
             this.textBoxGSusername.Size = new System.Drawing.Size(180, 22);
-            this.textBoxGSusername.TabIndex = 1;
+            this.textBoxGSusername.TabIndex = 2;
             // 
             // buttonExportSLD
             // 
             this.buttonExportSLD.Location = new System.Drawing.Point(12, 12);
             this.buttonExportSLD.Name = "buttonExportSLD";
             this.buttonExportSLD.Size = new System.Drawing.Size(167, 50);
-            this.buttonExportSLD.TabIndex = 3;
+            this.buttonExportSLD.TabIndex = 0;
             this.buttonExportSLD.Text = "Export SLD as XML";
             this.buttonExportSLD.UseVisualStyleBackColor = true;
+            this.buttonExportSLD.Click += new System.EventHandler(this.buttonExportSLD_Click);
             // 
             // pictureBox1
             // 

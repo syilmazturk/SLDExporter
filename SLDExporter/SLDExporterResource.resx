@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClassBreaksRenderer" xml:space="preserve">
+    <value>{683C994F-A17B-11D1-8816-080009EC732A}</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="gServerLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\gServerLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NullRenderer" xml:space="preserve">
+    <value>{00000000-0000-0000-0000-000000000000}</value>
+  </data>
+  <data name="SimpleRenderer" xml:space="preserve">
+    <value>{4EAB5691-8F9C-11D2-AB21-00C04FA334B3}</value>
+  </data>
+  <data name="UniqueValueRenderer" xml:space="preserve">
+    <value>{683C994E-A17B-11D1-8816-080009EC732A}</value>
   </data>
 </root>

@@ -61,12 +61,48 @@ namespace SLDExporter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {683C994F-A17B-11D1-8816-080009EC732A}.
+        /// </summary>
+        internal static string ClassBreaksRenderer {
+            get {
+                return ResourceManager.GetString("ClassBreaksRenderer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap gServerLogo {
             get {
                 object obj = ResourceManager.GetObject("gServerLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {00000000-0000-0000-0000-000000000000}.
+        /// </summary>
+        internal static string NullRenderer {
+            get {
+                return ResourceManager.GetString("NullRenderer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {4EAB5691-8F9C-11D2-AB21-00C04FA334B3}.
+        /// </summary>
+        internal static string SimpleRenderer {
+            get {
+                return ResourceManager.GetString("SimpleRenderer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {683C994E-A17B-11D1-8816-080009EC732A}.
+        /// </summary>
+        internal static string UniqueValueRenderer {
+            get {
+                return ResourceManager.GetString("UniqueValueRenderer", resourceCulture);
             }
         }
     }

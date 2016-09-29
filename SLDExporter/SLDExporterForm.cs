@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using ESRI.ArcGIS.Carto;
+using ESRI.ArcGIS.Geodatabase;
+using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,10 @@ namespace SLDExporter
 {
     public partial class SLDExporterForm : Form
     {
+        private ILayer selectedLayer = null;
+        private IDataset dataset = null;
+        private IFeatureLayer featureLayer = null;
+        
         public SLDExporterForm()
         {
             InitializeComponent();
@@ -96,6 +102,22 @@ namespace SLDExporter
         private void buttonGSaddStyleToLayer_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonExportSLD_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                selectedLayer = ArcMap.Document.SelectedLayer;
+                dataset = (IDataset)selectedLayer;
+                featureLayer = (IFeatureLayer)selectedLayer;
+                MessageBox.Show(featureLayer.Name);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }
