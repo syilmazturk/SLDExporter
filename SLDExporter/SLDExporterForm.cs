@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+
 namespace SLDExporter
 {
     public partial class SLDExporterForm : Form
@@ -33,6 +34,15 @@ namespace SLDExporter
         private IFillSymbol fillSymbol = null;
         private Color fillColor;
         private Color outlineColor;
+
+        private IAnnotateLayerPropertiesCollection annotateLPC = null;
+        private IAnnotateLayerProperties annotateLP = null;
+        private IElementCollection elementCol = null;
+        private IElementCollection elementCol2 = null;
+        private ILabelEngineLayerProperties leProps = null;
+        private ITextSymbol textSymbol = null;
+        string labelField;
+        string labelSize;
         
         public SLDExporterForm()
         {
@@ -132,6 +142,8 @@ namespace SLDExporter
                 string fillColorHEX;
                 string outlineColorHEX;
                 string outlineWidth;
+
+                bool labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
                 
                 if (rendererID == SLDExporterResource.SimpleRenderer || rendererID == SLDExporterResource.NullRenderer)
                 {
@@ -147,11 +159,13 @@ namespace SLDExporter
                     outlineColor = ColorTranslator.FromOle(fillSymbol.Outline.Color.RGB);
                     outlineColorHEX = String.Format("#{0:X6}", outlineColor.ToArgb() & 0x00FFFFFF);
 
-                    outlineWidth = fillSymbol.Outline.Width.ToString();
-                    string simpleSldXml = String.Format(SLDExporterResource.SimpleSLD, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
+                    outlineWidth = fillSymbol.Outline.Width.ToString().Replace(",", ".");
+                    string simpleSldXmlWithoutLabel = String.Format(SLDExporterResource.SimpleSLDwithoutLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
+
+                    createLabelledSLD(labelOpenOrClosed, simpleSldXmlWithoutLabel);
 
                     //string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
-                    
+
                     //StreamWriter file = new System.IO.StreamWriter(path);
                     //file.WriteLine(simpleSldXml);
                     //file.Close();
@@ -160,8 +174,26 @@ namespace SLDExporter
             catch (Exception)
             {
                 MessageBox.Show("Hata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }    
+        }
+
+        public void createLabelledSLD(bool labelStatus, string sldObject)
+        {
+            if (labelStatus == true)
+            {
+                annotateLPC = geoFeatureLayer.AnnotationProperties;
+                annotateLPC.QueryItem(0, out annotateLP, out elementCol, out elementCol2);
+                leProps = (ILabelEngineLayerProperties)annotateLP;
+                labelField = leProps.Expression.Replace(@"[", "").Replace(@"]", "");
+                textSymbol = leProps.Symbol;
+                labelSize = textSymbol.Size.ToString().Replace(",", ".");
+                //sld object e etiket ekle, öncesinde resource da değişiklik yap
             }
-            
+            else
+            {
+                MessageBox.Show("Etiket kapalı"); 
+                //sld object i direkt döndür
+            }
         }
     }
 }

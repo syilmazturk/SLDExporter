@@ -90,6 +90,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Config.esriaddinx</DependentUpon>
     </Compile>
+    <Compile Include="LabelChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SLDExporterForm.cs">
       <SubType>Form</SubType>
