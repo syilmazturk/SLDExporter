@@ -1,4 +1,5 @@
 ﻿using ESRI.ArcGIS.Carto;
+using ESRI.ArcGIS.Display;
 using ESRI.ArcGIS.Geodatabase;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,17 @@ namespace SLDExporter
         private ILayer selectedLayer = null;
         private IDataset dataset = null;
         private IFeatureLayer featureLayer = null;
+        private IGeoFeatureLayer geoFeatureLayer = null;
+        private IFeatureRenderer featureRenderer = null;
+        private IFeatureClass featureClass = null;
+        private IFeatureCursor featureCursor = null;
+        private IFeature feature = null;
+
+        private ISimpleRenderer simpleRenderer = null;
+        private ISymbol symbol = null;
+        private IFillSymbol fillSymbol = null;
+        private Color fillColor;
+        private Color outlineColor;
         
         public SLDExporterForm()
         {
@@ -111,7 +124,38 @@ namespace SLDExporter
                 selectedLayer = ArcMap.Document.SelectedLayer;
                 dataset = (IDataset)selectedLayer;
                 featureLayer = (IFeatureLayer)selectedLayer;
-                MessageBox.Show(featureLayer.Name);
+                geoFeatureLayer = (IGeoFeatureLayer)featureLayer;
+                featureRenderer = geoFeatureLayer.Renderer;
+                featureClass = featureLayer.FeatureClass;
+
+                string rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
+                string fillColorHEX;
+                string outlineColorHEX;
+                string outlineWidth;
+                
+                if (rendererID == SLDExporterResource.SimpleRenderer || rendererID == SLDExporterResource.NullRenderer)
+                {
+                    featureCursor = featureClass.Search(null, false);
+                    feature = featureCursor.NextFeature();
+                    simpleRenderer = (ISimpleRenderer)featureRenderer;
+                    symbol = simpleRenderer.Symbol;
+                    fillSymbol = (IFillSymbol)symbol;
+
+                    fillColor = ColorTranslator.FromOle(fillSymbol.Color.RGB);
+                    fillColorHEX = String.Format("#{0:X6}", fillColor.ToArgb() & 0x00FFFFFF);
+
+                    outlineColor = ColorTranslator.FromOle(fillSymbol.Outline.Color.RGB);
+                    outlineColorHEX = String.Format("#{0:X6}", outlineColor.ToArgb() & 0x00FFFFFF);
+
+                    outlineWidth = fillSymbol.Outline.Width.ToString();
+                    string simpleSldXml = String.Format(SLDExporterResource.SimpleSLD, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
+
+                    //string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
+                    
+                    //StreamWriter file = new System.IO.StreamWriter(path);
+                    //file.WriteLine(simpleSldXml);
+                    //file.Close();
+                }
             }
             catch (Exception)
             {

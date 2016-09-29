@@ -130,6 +130,9 @@
   <data name="SimpleRenderer" xml:space="preserve">
     <value>{4EAB5691-8F9C-11D2-AB21-00C04FA334B3}</value>
   </data>
+  <data name="SimpleSLD" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;&lt;StyledLayerDescriptor version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;&lt;NamedLayer&gt;&lt;Name&gt;{0}&lt;/Name&gt;&lt;UserStyle&gt;&lt;FeatureTypeStyle&gt;&lt;Rule&gt;&lt;PolygonSymbolizer&gt;&lt;Fill&gt;&lt;CssParameter name="fill"&gt;{1}&lt;/CssParameter&gt;&lt;/Fill&gt;&lt;Stroke&gt;&lt;CssParameter name="stroke"&gt;{2}&lt;/CssParameter&gt;&lt;CssParameter name="stroke-width"&gt;{3}&lt;/CssParameter&gt;&lt;/Stroke&gt;&lt;/PolygonSymbolizer&gt;&lt;/Rule&gt;&lt;/FeatureTypeStyle&gt;&lt;/UserStyle&gt;&lt;/NamedLayer&gt;&lt;/StyledLayerDescriptor&gt;</value>
+  </data>
   <data name="UniqueValueRenderer" xml:space="preserve">
     <value>{683C994E-A17B-11D1-8816-080009EC732A}</value>
   </data>

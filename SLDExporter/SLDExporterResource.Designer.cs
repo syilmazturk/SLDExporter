@@ -98,6 +98,15 @@ namespace SLDExporter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;&lt;StyledLayerDescriptor version=&quot;1.0.0&quot; xsi:schemaLocation=&quot;http://www.opengis.net/sld StyledLayerDescriptor.xsd&quot; xmlns=&quot;http://www.opengis.net/sld&quot; xmlns:ogc=&quot;http://www.opengis.net/ogc&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;NamedLayer&gt;&lt;Name&gt;{0}&lt;/Name&gt;&lt;UserStyle&gt;&lt;FeatureTypeStyle&gt;&lt;Rule&gt;&lt;PolygonSymbolizer&gt;&lt;Fill&gt;&lt;CssParameter name=&quot;fill&quot;&gt;{1}&lt;/CssParameter&gt;&lt;/Fill&gt;&lt;Stroke&gt;&lt;CssParameter name=&quot;stroke&quot;&gt;{2}&lt;/CssPa [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SimpleSLD {
+            get {
+                return ResourceManager.GetString("SimpleSLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {683C994E-A17B-11D1-8816-080009EC732A}.
         /// </summary>
         internal static string UniqueValueRenderer {
