@@ -56,6 +56,11 @@ namespace SLDExporter
 
         string simpleSldXmlWithoutLabel;
         string simpleSldXmlWithLabel;
+
+        string sldNameOnServer;
+
+        string geoserverUsername;
+        string geoserverPassword;
         
         public SLDExporterForm()
         {
@@ -64,6 +69,15 @@ namespace SLDExporter
             textBoxGSurl.Text = "http://0.0.0.0:8080/geoserver";
             this.textBoxGSurl.Leave += new EventHandler(this.textBoxGSurl_Leave);
             this.textBoxGSurl.Enter += new EventHandler(this.textBoxGSurl_Enter);
+
+            selectedLayer = ArcMap.Document.SelectedLayer;
+            dataset = (IDataset)selectedLayer;
+            featureLayer = (IFeatureLayer)selectedLayer;
+            geoFeatureLayer = (IGeoFeatureLayer)featureLayer;
+            featureRenderer = geoFeatureLayer.Renderer;
+            featureClass = featureLayer.FeatureClass;
+            rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
+            labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
         }
 
         private void textBoxGSurl_Leave(object sender, EventArgs e)
@@ -96,10 +110,9 @@ namespace SLDExporter
 
         private void buttonGSconnect_Click(object sender, EventArgs e)
         {
+            geoserverUsername = textBoxGSusername.Text.Trim();
+            geoserverPassword = textBoxGSpassword.Text.Trim();
             string geoserverUrl = textBoxGSurl.Text.Trim() + "/rest/workspaces.xml";
-            string geoserverUsername = textBoxGSusername.Text.Trim();
-            string geoserverPassword = textBoxGSpassword.Text.Trim();
-
             var client = new RestClient(geoserverUrl);
             client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request = new RestRequest(Method.GET);
@@ -132,7 +145,26 @@ namespace SLDExporter
 
         private void buttonGSpublishSLD_Click(object sender, EventArgs e)
         {
+            try 
+	        {	        
+		        string geoserverUrl = textBoxGSurl.Text.Trim() + "/rest/styles.xml";
+                var client = new RestClient(geoserverUrl);
+                client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
+                var request = new RestRequest(Method.POST);
+                sldNameOnServer = String.Format("<style><name>{0}</name><filename>{0}.sld</filename></style>", textBoxGSsldName.Text);
+                request.AddHeader("Content-type", "text/xml");
+                request.AddParameter("text/xml", sldNameOnServer, ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
 
+                if (response.StatusCode.ToString() == "Created") //&& sld'nin upload olma durumu
+	            {
+                    MessageBox.Show("Layer style has been successfully created on the server.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+	            }
+	        }
+	        catch (Exception)
+	        {
+                MessageBox.Show("Internal Server Error - Please make sure you've connected to GeoServer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	        }
         }
 
         private void buttonGSaddStyleToLayer_Click(object sender, EventArgs e)
@@ -144,15 +176,6 @@ namespace SLDExporter
         {
             try
             {
-                selectedLayer = ArcMap.Document.SelectedLayer;
-                dataset = (IDataset)selectedLayer;
-                featureLayer = (IFeatureLayer)selectedLayer;
-                geoFeatureLayer = (IGeoFeatureLayer)featureLayer;
-                featureRenderer = geoFeatureLayer.Renderer;
-                featureClass = featureLayer.FeatureClass;
-                rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
-                labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
-
                 if (featureClass.ShapeType == esriGeometryType.esriGeometryPoint)
                 {
                     MessageBox.Show("point feature class");
