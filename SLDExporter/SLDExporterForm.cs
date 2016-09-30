@@ -146,8 +146,8 @@ namespace SLDExporter
         private void buttonGSpublishSLD_Click(object sender, EventArgs e)
         {
             try 
-	        {	        
-		        string geoserverUrl = textBoxGSurl.Text.Trim() + "/rest/styles.xml";
+	        {
+                string geoserverUrl = String.Format(textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles.xml", comboBoxGSworkspaces.Text);
                 var client = new RestClient(geoserverUrl);
                 client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
                 var request = new RestRequest(Method.POST);
