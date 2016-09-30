@@ -1,6 +1,7 @@
 ﻿using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Display;
 using ESRI.ArcGIS.Geodatabase;
+using ESRI.ArcGIS.Geometry;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -14,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using stdole;
 
 
 namespace SLDExporter
@@ -35,14 +37,25 @@ namespace SLDExporter
         private Color fillColor;
         private Color outlineColor;
 
+        string rendererID;
+        string fillColorHEX;
+        string outlineColorHEX;
+        string outlineWidth;
+
         private IAnnotateLayerPropertiesCollection annotateLPC = null;
         private IAnnotateLayerProperties annotateLP = null;
         private IElementCollection elementCol = null;
         private IElementCollection elementCol2 = null;
         private ILabelEngineLayerProperties leProps = null;
         private ITextSymbol textSymbol = null;
+        bool labelOpenOrClosed;
         string labelField;
+        private IFontDisp labelFont;
+        string labelFontFamily;
         string labelSize;
+
+        string simpleSldXmlWithoutLabel;
+        string simpleSldXmlWithLabel;
         
         public SLDExporterForm()
         {
@@ -137,47 +150,55 @@ namespace SLDExporter
                 geoFeatureLayer = (IGeoFeatureLayer)featureLayer;
                 featureRenderer = geoFeatureLayer.Renderer;
                 featureClass = featureLayer.FeatureClass;
+                rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
+                labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
 
-                string rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
-                string fillColorHEX;
-                string outlineColorHEX;
-                string outlineWidth;
-
-                bool labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
-                
-                if (rendererID == SLDExporterResource.SimpleRenderer || rendererID == SLDExporterResource.NullRenderer)
+                if (featureClass.ShapeType == esriGeometryType.esriGeometryPoint)
                 {
-                    featureCursor = featureClass.Search(null, false);
-                    feature = featureCursor.NextFeature();
-                    simpleRenderer = (ISimpleRenderer)featureRenderer;
-                    symbol = simpleRenderer.Symbol;
-                    fillSymbol = (IFillSymbol)symbol;
-
-                    fillColor = ColorTranslator.FromOle(fillSymbol.Color.RGB);
-                    fillColorHEX = String.Format("#{0:X6}", fillColor.ToArgb() & 0x00FFFFFF);
-
-                    outlineColor = ColorTranslator.FromOle(fillSymbol.Outline.Color.RGB);
-                    outlineColorHEX = String.Format("#{0:X6}", outlineColor.ToArgb() & 0x00FFFFFF);
-
-                    outlineWidth = fillSymbol.Outline.Width.ToString().Replace(",", ".");
-                    string simpleSldXmlWithoutLabel = String.Format(SLDExporterResource.SimpleSLDwithoutLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
-
-                    createLabelledSLD(labelOpenOrClosed, simpleSldXmlWithoutLabel);
-
-                    //string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
-
-                    //StreamWriter file = new System.IO.StreamWriter(path);
-                    //file.WriteLine(simpleSldXml);
-                    //file.Close();
+                    MessageBox.Show("point feature class");
                 }
+
+                if (featureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+                {
+                    MessageBox.Show("line feature class");
+                }
+
+                if (featureClass.ShapeType == esriGeometryType.esriGeometryPolygon)
+                {
+                    if (rendererID == SLDExporterResource.SimpleRenderer || rendererID == SLDExporterResource.NullRenderer)
+                    {
+                        SimpleRendererPolygon(rendererID);
+                    }
+                    
+                }
+       
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Hata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Please make sure you select a layer in the Table Of Contents", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
             }    
         }
 
-        public void createLabelledSLD(bool labelStatus, string sldObject)
+        private void SimpleRendererPolygon(string rendererID)
+        {
+            simpleRenderer = (ISimpleRenderer)featureRenderer;
+            symbol = simpleRenderer.Symbol;
+            fillSymbol = (IFillSymbol)symbol;
+
+            fillColor = ColorTranslator.FromOle(fillSymbol.Color.RGB);
+            fillColorHEX = String.Format("#{0:X6}", fillColor.ToArgb() & 0x00FFFFFF);
+
+            outlineColor = ColorTranslator.FromOle(fillSymbol.Outline.Color.RGB);
+            outlineColorHEX = String.Format("#{0:X6}", outlineColor.ToArgb() & 0x00FFFFFF);
+
+            outlineWidth = fillSymbol.Outline.Width.ToString().Replace(",", ".");
+            
+            ExportSLD(labelOpenOrClosed);
+        }
+
+        public void ExportSLD(bool labelStatus)
         {
             if (labelStatus == true)
             {
@@ -186,13 +207,26 @@ namespace SLDExporter
                 leProps = (ILabelEngineLayerProperties)annotateLP;
                 labelField = leProps.Expression.Replace(@"[", "").Replace(@"]", "");
                 textSymbol = leProps.Symbol;
+                labelFont = textSymbol.Font;
+                labelFontFamily = labelFont.Name;
                 labelSize = textSymbol.Size.ToString().Replace(",", ".");
-                //sld object e etiket ekle, öncesinde resource da değişiklik yap
+
+                simpleSldXmlWithLabel = String.Format(SLDExporterResource.SimpleSLDwithLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth, labelField, labelFontFamily, labelSize);
+
+                string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
+                StreamWriter file = new System.IO.StreamWriter(path);
+                file.WriteLine(simpleSldXmlWithLabel);
+                file.Close();
             }
             else
             {
-                MessageBox.Show("Etiket kapalı"); 
                 //sld object i direkt döndür
+                simpleSldXmlWithoutLabel = String.Format(SLDExporterResource.SimpleSLDwithoutLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
+
+                string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
+                StreamWriter file = new System.IO.StreamWriter(path);
+                file.WriteLine(simpleSldXmlWithoutLabel);
+                file.Close();
             }
         }
     }
