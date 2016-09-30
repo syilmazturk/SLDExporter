@@ -70,14 +70,21 @@ namespace SLDExporter
             this.textBoxGSurl.Leave += new EventHandler(this.textBoxGSurl_Leave);
             this.textBoxGSurl.Enter += new EventHandler(this.textBoxGSurl_Enter);
 
-            selectedLayer = ArcMap.Document.SelectedLayer;
-            dataset = (IDataset)selectedLayer;
-            featureLayer = (IFeatureLayer)selectedLayer;
-            geoFeatureLayer = (IGeoFeatureLayer)featureLayer;
-            featureRenderer = geoFeatureLayer.Renderer;
-            featureClass = featureLayer.FeatureClass;
-            rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
-            labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
+            try
+            {
+                selectedLayer = ArcMap.Document.SelectedLayer;
+                dataset = (IDataset)selectedLayer;
+                featureLayer = (IFeatureLayer)selectedLayer;
+                geoFeatureLayer = (IGeoFeatureLayer)featureLayer;
+                featureRenderer = geoFeatureLayer.Renderer;
+                featureClass = featureLayer.FeatureClass;
+                rendererID = geoFeatureLayer.RendererPropertyPageClassID.Value.ToString();
+                labelOpenOrClosed = geoFeatureLayer.DisplayAnnotation;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Please make sure you select a layer in the Table Of Contents", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void textBoxGSurl_Leave(object sender, EventArgs e)
