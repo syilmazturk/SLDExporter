@@ -61,6 +61,8 @@ namespace SLDExporter
 
         string geoserverUsername;
         string geoserverPassword;
+
+        private FolderBrowserDialog folderBrowserDialog;
         
         public SLDExporterForm()
         {
@@ -197,7 +199,7 @@ namespace SLDExporter
                 {
                     if (rendererID == SLDExporterResource.SimpleRenderer || rendererID == SLDExporterResource.NullRenderer)
                     {
-                        SimpleRendererPolygon(rendererID);
+                        SimpleRendererPolygon();
                     }
                     
                 }
@@ -211,7 +213,7 @@ namespace SLDExporter
             }    
         }
 
-        private void SimpleRendererPolygon(string rendererID)
+        private void SimpleRendererPolygon()
         {
             simpleRenderer = (ISimpleRenderer)featureRenderer;
             symbol = simpleRenderer.Symbol;
@@ -228,7 +230,7 @@ namespace SLDExporter
             ExportSLD(labelOpenOrClosed);
         }
 
-        public void ExportSLD(bool labelStatus)
+        private void ExportSLD(bool labelStatus)
         {
             if (labelStatus == true)
             {
@@ -243,19 +245,27 @@ namespace SLDExporter
 
                 simpleSldXmlWithLabel = String.Format(SLDExporterResource.SimpleSLDwithLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth, labelField, labelFontFamily, labelSize);
 
-                string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
-                StreamWriter file = new System.IO.StreamWriter(path);
-                file.WriteLine(simpleSldXmlWithLabel);
-                file.Close();
+                SaveSLDtoSpecifiedPath(simpleSldXmlWithLabel);
+                
             }
             else
             {
-                //sld object i direkt döndür
                 simpleSldXmlWithoutLabel = String.Format(SLDExporterResource.SimpleSLDwithoutLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
 
-                string path = "C:\\Users\\seroman\\Desktop\\sld_denemesi_haci_abi.sld";
+                SaveSLDtoSpecifiedPath(simpleSldXmlWithoutLabel);
+            }
+        }
+
+        private void SaveSLDtoSpecifiedPath(string SLDobject)
+        {
+            this.folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowNewFolderButton = true;
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string path = String.Format(@"{0}\{1}.sld", folderBrowserDialog.SelectedPath, textBoxGSsldName.Text);
                 StreamWriter file = new System.IO.StreamWriter(path);
-                file.WriteLine(simpleSldXmlWithoutLabel);
+                file.WriteLine(SLDobject);
                 file.Close();
             }
         }
