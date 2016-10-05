@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBoxPublishSLD = new System.Windows.Forms.GroupBox();
+            this.labelGSdatastores = new System.Windows.Forms.Label();
+            this.comboBoxGSdatastores = new System.Windows.Forms.ComboBox();
             this.labelGSurl = new System.Windows.Forms.Label();
             this.textBoxGSurl = new System.Windows.Forms.TextBox();
-            this.buttonGSaddStyleToLayer = new System.Windows.Forms.Button();
-            this.labelGSstyles = new System.Windows.Forms.Label();
             this.labelGSsldName = new System.Windows.Forms.Label();
             this.textBoxGSsldName = new System.Windows.Forms.TextBox();
             this.labelGSworkspaces = new System.Windows.Forms.Label();
-            this.comboBoxGSstyles = new System.Windows.Forms.ComboBox();
             this.comboBoxGSworkspaces = new System.Windows.Forms.ComboBox();
             this.buttonGSpublishSLD = new System.Windows.Forms.Button();
             this.labelGSlayers = new System.Windows.Forms.Label();
@@ -54,14 +53,13 @@
             // 
             // groupBoxPublishSLD
             // 
+            this.groupBoxPublishSLD.Controls.Add(this.labelGSdatastores);
+            this.groupBoxPublishSLD.Controls.Add(this.comboBoxGSdatastores);
             this.groupBoxPublishSLD.Controls.Add(this.labelGSurl);
             this.groupBoxPublishSLD.Controls.Add(this.textBoxGSurl);
-            this.groupBoxPublishSLD.Controls.Add(this.buttonGSaddStyleToLayer);
-            this.groupBoxPublishSLD.Controls.Add(this.labelGSstyles);
             this.groupBoxPublishSLD.Controls.Add(this.labelGSsldName);
             this.groupBoxPublishSLD.Controls.Add(this.textBoxGSsldName);
             this.groupBoxPublishSLD.Controls.Add(this.labelGSworkspaces);
-            this.groupBoxPublishSLD.Controls.Add(this.comboBoxGSstyles);
             this.groupBoxPublishSLD.Controls.Add(this.comboBoxGSworkspaces);
             this.groupBoxPublishSLD.Controls.Add(this.buttonGSpublishSLD);
             this.groupBoxPublishSLD.Controls.Add(this.labelGSlayers);
@@ -73,10 +71,29 @@
             this.groupBoxPublishSLD.Controls.Add(this.textBoxGSusername);
             this.groupBoxPublishSLD.Location = new System.Drawing.Point(12, 85);
             this.groupBoxPublishSLD.Name = "groupBoxPublishSLD";
-            this.groupBoxPublishSLD.Size = new System.Drawing.Size(416, 391);
+            this.groupBoxPublishSLD.Size = new System.Drawing.Size(416, 337);
             this.groupBoxPublishSLD.TabIndex = 1;
             this.groupBoxPublishSLD.TabStop = false;
             this.groupBoxPublishSLD.Text = "Create SLD style on published GeoServer Layer";
+            // 
+            // labelGSdatastores
+            // 
+            this.labelGSdatastores.AutoSize = true;
+            this.labelGSdatastores.Location = new System.Drawing.Point(49, 217);
+            this.labelGSdatastores.Name = "labelGSdatastores";
+            this.labelGSdatastores.Size = new System.Drawing.Size(154, 17);
+            this.labelGSdatastores.TabIndex = 18;
+            this.labelGSdatastores.Text = "GeoServer Datastores:";
+            // 
+            // comboBoxGSdatastores
+            // 
+            this.comboBoxGSdatastores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGSdatastores.FormattingEnabled = true;
+            this.comboBoxGSdatastores.Location = new System.Drawing.Point(230, 214);
+            this.comboBoxGSdatastores.Name = "comboBoxGSdatastores";
+            this.comboBoxGSdatastores.Size = new System.Drawing.Size(180, 24);
+            this.comboBoxGSdatastores.TabIndex = 17;
+            this.comboBoxGSdatastores.SelectedIndexChanged += new System.EventHandler(this.comboBoxGSdatastores_SelectedIndexChanged);
             // 
             // labelGSurl
             // 
@@ -94,29 +111,10 @@
             this.textBoxGSurl.Size = new System.Drawing.Size(180, 22);
             this.textBoxGSurl.TabIndex = 1;
             // 
-            // buttonGSaddStyleToLayer
-            // 
-            this.buttonGSaddStyleToLayer.Location = new System.Drawing.Point(245, 355);
-            this.buttonGSaddStyleToLayer.Name = "buttonGSaddStyleToLayer";
-            this.buttonGSaddStyleToLayer.Size = new System.Drawing.Size(165, 23);
-            this.buttonGSaddStyleToLayer.TabIndex = 10;
-            this.buttonGSaddStyleToLayer.Text = "Add Style To Layer";
-            this.buttonGSaddStyleToLayer.UseVisualStyleBackColor = true;
-            this.buttonGSaddStyleToLayer.Click += new System.EventHandler(this.buttonGSaddStyleToLayer_Click);
-            // 
-            // labelGSstyles
-            // 
-            this.labelGSstyles.AutoSize = true;
-            this.labelGSstyles.Location = new System.Drawing.Point(80, 328);
-            this.labelGSstyles.Name = "labelGSstyles";
-            this.labelGSstyles.Size = new System.Drawing.Size(123, 17);
-            this.labelGSstyles.TabIndex = 13;
-            this.labelGSstyles.Text = "GeoServer Styles:";
-            // 
             // labelGSsldName
             // 
             this.labelGSsldName.AutoSize = true;
-            this.labelGSsldName.Location = new System.Drawing.Point(123, 220);
+            this.labelGSsldName.Location = new System.Drawing.Point(123, 277);
             this.labelGSsldName.Name = "labelGSsldName";
             this.labelGSsldName.Size = new System.Drawing.Size(80, 17);
             this.labelGSsldName.TabIndex = 12;
@@ -124,7 +122,7 @@
             // 
             // textBoxGSsldName
             // 
-            this.textBoxGSsldName.Location = new System.Drawing.Point(230, 217);
+            this.textBoxGSsldName.Location = new System.Drawing.Point(230, 274);
             this.textBoxGSsldName.Name = "textBoxGSsldName";
             this.textBoxGSsldName.Size = new System.Drawing.Size(180, 22);
             this.textBoxGSsldName.TabIndex = 6;
@@ -138,15 +136,6 @@
             this.labelGSworkspaces.TabIndex = 10;
             this.labelGSworkspaces.Text = "GeoServer Workspaces:";
             // 
-            // comboBoxGSstyles
-            // 
-            this.comboBoxGSstyles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxGSstyles.FormattingEnabled = true;
-            this.comboBoxGSstyles.Location = new System.Drawing.Point(230, 325);
-            this.comboBoxGSstyles.Name = "comboBoxGSstyles";
-            this.comboBoxGSstyles.Size = new System.Drawing.Size(180, 24);
-            this.comboBoxGSstyles.TabIndex = 9;
-            // 
             // comboBoxGSworkspaces
             // 
             this.comboBoxGSworkspaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -155,10 +144,11 @@
             this.comboBoxGSworkspaces.Name = "comboBoxGSworkspaces";
             this.comboBoxGSworkspaces.Size = new System.Drawing.Size(180, 24);
             this.comboBoxGSworkspaces.TabIndex = 5;
+            this.comboBoxGSworkspaces.SelectedIndexChanged += new System.EventHandler(this.comboBoxGSworkspaces_SelectedIndexChanged);
             // 
             // buttonGSpublishSLD
             // 
-            this.buttonGSpublishSLD.Location = new System.Drawing.Point(284, 245);
+            this.buttonGSpublishSLD.Location = new System.Drawing.Point(284, 302);
             this.buttonGSpublishSLD.Name = "buttonGSpublishSLD";
             this.buttonGSpublishSLD.Size = new System.Drawing.Size(126, 23);
             this.buttonGSpublishSLD.TabIndex = 7;
@@ -169,7 +159,7 @@
             // labelGSlayers
             // 
             this.labelGSlayers.AutoSize = true;
-            this.labelGSlayers.Location = new System.Drawing.Point(75, 298);
+            this.labelGSlayers.Location = new System.Drawing.Point(75, 247);
             this.labelGSlayers.Name = "labelGSlayers";
             this.labelGSlayers.Size = new System.Drawing.Size(128, 17);
             this.labelGSlayers.TabIndex = 6;
@@ -179,7 +169,7 @@
             // 
             this.comboBoxGSlayers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGSlayers.FormattingEnabled = true;
-            this.comboBoxGSlayers.Location = new System.Drawing.Point(230, 295);
+            this.comboBoxGSlayers.Location = new System.Drawing.Point(230, 244);
             this.comboBoxGSlayers.Name = "comboBoxGSlayers";
             this.comboBoxGSlayers.Size = new System.Drawing.Size(180, 24);
             this.comboBoxGSlayers.TabIndex = 8;
@@ -251,7 +241,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 488);
+            this.ClientSize = new System.Drawing.Size(440, 433);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBoxPublishSLD);
             this.Controls.Add(this.buttonExportSLD);
@@ -279,14 +269,13 @@
         private System.Windows.Forms.Button buttonGSpublishSLD;
         private System.Windows.Forms.Button buttonExportSLD;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonGSaddStyleToLayer;
-        private System.Windows.Forms.Label labelGSstyles;
         private System.Windows.Forms.Label labelGSsldName;
         private System.Windows.Forms.TextBox textBoxGSsldName;
         private System.Windows.Forms.Label labelGSworkspaces;
-        private System.Windows.Forms.ComboBox comboBoxGSstyles;
         private System.Windows.Forms.ComboBox comboBoxGSworkspaces;
         private System.Windows.Forms.Label labelGSurl;
         private System.Windows.Forms.TextBox textBoxGSurl;
+        private System.Windows.Forms.Label labelGSdatastores;
+        private System.Windows.Forms.ComboBox comboBoxGSdatastores;
     }
 }

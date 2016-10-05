@@ -57,18 +57,18 @@ namespace SLDExporter
         string simpleSldXmlWithoutLabel;
         string simpleSldXmlWithLabel;
 
-        string sldNameOnServer;
-
         string geoserverUsername;
         string geoserverPassword;
 
         private FolderBrowserDialog folderBrowserDialog;
+
+        string tempSLDpath;
         
         public SLDExporterForm()
         {
             InitializeComponent();
             textBoxGSurl.ForeColor = Color.LightGray;
-            textBoxGSurl.Text = "http://0.0.0.0:8080/geoserver";
+            textBoxGSurl.Text = "localhost:8080/geoserver";
             this.textBoxGSurl.Leave += new EventHandler(this.textBoxGSurl_Leave);
             this.textBoxGSurl.Enter += new EventHandler(this.textBoxGSurl_Enter);
 
@@ -93,14 +93,14 @@ namespace SLDExporter
         {
             if (textBoxGSurl.Text == "")
             {
-                textBoxGSurl.Text = "http://0.0.0.0:8080/geoserver";
+                textBoxGSurl.Text = "localhost:8080/geoserver";
                 textBoxGSurl.ForeColor = Color.Gray;
             }
         }
 
         private void textBoxGSurl_Enter(object sender, EventArgs e)
         {
-            if (textBoxGSurl.Text == "http://0.0.0.0:8080/geoserver")
+            if (textBoxGSurl.Text == "localhost:8080/geoserver")
             {
                 textBoxGSurl.Text = "";
                 textBoxGSurl.ForeColor = Color.Black;
@@ -121,7 +121,8 @@ namespace SLDExporter
         {
             geoserverUsername = textBoxGSusername.Text.Trim();
             geoserverPassword = textBoxGSpassword.Text.Trim();
-            string geoserverUrl = textBoxGSurl.Text.Trim() + "/rest/workspaces.xml";
+
+            string geoserverUrl = "http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces.xml";
             var client = new RestClient(geoserverUrl);
             client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request = new RestRequest(Method.GET);
@@ -143,7 +144,7 @@ namespace SLDExporter
                     geoserverWorkspaceList.Add(geoserverWorkspace);
                 }
 
-                comboBoxGSworkspaces.DataSource = geoserverWorkspaceList;
+                this.comboBoxGSworkspaces.DataSource = geoserverWorkspaceList;
             }
             catch (Exception)
             {             
@@ -156,24 +157,78 @@ namespace SLDExporter
         {
             try 
 	        {
-                string geoserverUrl = String.Format(textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles.xml", comboBoxGSworkspaces.Text);
-                var client = new RestClient(geoserverUrl);
-                client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
-                var request = new RestRequest(Method.POST);
-                sldNameOnServer = String.Format("<style><name>{0}</name><filename>{0}.sld</filename></style>", textBoxGSsldName.Text);
-                request.AddHeader("Content-type", "text/xml");
-                request.AddParameter("text/xml", sldNameOnServer, ParameterType.RequestBody);
-                IRestResponse response = client.Execute(request);
+                SimpleRendererPolygon();
 
-                if (response.StatusCode.ToString() == "Created") //&& sld'nin upload olma durumu
-	            {
-                    MessageBox.Show("Layer style has been successfully created on the server.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-	            }
+                if (labelOpenOrClosed == true)
+                {
+                    SaveSLDtoTempPath(simpleSldXmlWithLabel);
+                }
+                else
+                {
+                    SaveSLDtoTempPath(simpleSldXmlWithoutLabel);
+                }
+
+                CreateStyleInWorkspace();
+
+                UploadStyleWithinWorkspace();
+
+                IRestResponse response3 = ApplyStyleToLayer();
+
+                if (response3.StatusCode.ToString() == "OK")
+                {
+                    MessageBox.Show("Layer style has been successfully applied to the specified layer.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 	        }
 	        catch (Exception)
 	        {
                 MessageBox.Show("Internal Server Error - Please make sure you've connected to GeoServer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 	        }
+        }
+
+        private IRestResponse ApplyStyleToLayer()
+        {
+            string geoserverUrl3 = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/layers/{0}:{1}", comboBoxGSworkspaces.Text, comboBoxGSlayers.Text);
+            var client3 = new RestClient(geoserverUrl3);
+            client3.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
+            var request3 = new RestRequest(Method.PUT);
+            string sldToBeAssigned = String.Format("<layer><defaultStyle><name>{0}</name><workspace>{1}</workspace></defaultStyle></layer>", textBoxGSsldName.Text, comboBoxGSworkspaces.Text);
+            request3.AddHeader("Content-type", "text/xml");
+            request3.AddParameter("text/xml", sldToBeAssigned, ParameterType.RequestBody);
+            IRestResponse response3 = client3.Execute(request3);
+            return response3;
+        }
+
+        private void UploadStyleWithinWorkspace()
+        {
+            var sldToBeUploaded = File.ReadAllBytes(tempSLDpath);
+            string geoserverUrl2 = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles/{1}", comboBoxGSworkspaces.Text, textBoxGSsldName.Text);
+            var client2 = new RestClient(geoserverUrl2);
+            client2.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
+            var request2 = new RestRequest(Method.PUT);
+            request2.AddHeader("Content-type", "application/vnd.ogc.sld+xml");
+            request2.AddParameter("application/vnd.ogc.sld+xml", sldToBeUploaded, ParameterType.RequestBody);
+            IRestResponse response2 = client2.Execute(request2);
+        }
+
+        private void CreateStyleInWorkspace()
+        {
+            string geoserverUrl = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles.xml", comboBoxGSworkspaces.Text);
+            var client = new RestClient(geoserverUrl);
+            client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
+            var request = new RestRequest(Method.POST);
+            string sldNameOnServer = String.Format("<style><name>{0}</name><filename>{0}.sld</filename></style>", textBoxGSsldName.Text);
+            request.AddHeader("Content-type", "text/xml");
+            request.AddParameter("text/xml", sldNameOnServer, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+        }
+
+        private void SaveSLDtoTempPath(string sldObject)
+        {
+            string tempSLDfileName = String.Format("{0}.sld", textBoxGSsldName.Text);
+            tempSLDpath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), tempSLDfileName);
+            StreamWriter sw = new System.IO.StreamWriter(tempSLDpath);
+            sw.WriteLine(sldObject);
+            sw.Close();
         }
 
         private void buttonGSaddStyleToLayer_Click(object sender, EventArgs e)
@@ -200,16 +255,25 @@ namespace SLDExporter
                     if (rendererID == SLDExporterResource.SimpleRenderer || rendererID == SLDExporterResource.NullRenderer)
                     {
                         SimpleRendererPolygon();
+
+                        if (labelOpenOrClosed == true)
+                        {
+                            SaveSLDtoSpecifiedPath(simpleSldXmlWithLabel);
+                        }
+                        else
+                        {
+                            SaveSLDtoSpecifiedPath(simpleSldXmlWithoutLabel);
+                        }
+
+                        MessageBox.Show("Layer style has been successfully saved on the specified path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     
                 }
        
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //MessageBox.Show("Please make sure you select a layer in the Table Of Contents", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show(ex.Message);
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show("Please make sure you select a layer in the Table Of Contents", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }    
         }
 
@@ -244,19 +308,14 @@ namespace SLDExporter
                 labelSize = textSymbol.Size.ToString().Replace(",", ".");
 
                 simpleSldXmlWithLabel = String.Format(SLDExporterResource.SimpleSLDwithLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth, labelField, labelFontFamily, labelSize);
-
-                SaveSLDtoSpecifiedPath(simpleSldXmlWithLabel);
-                
             }
             else
             {
-                simpleSldXmlWithoutLabel = String.Format(SLDExporterResource.SimpleSLDwithoutLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);
-
-                SaveSLDtoSpecifiedPath(simpleSldXmlWithoutLabel);
+                simpleSldXmlWithoutLabel = String.Format(SLDExporterResource.SimpleSLDwithoutLabel, textBoxGSsldName.Text, fillColorHEX, outlineColorHEX, outlineWidth);  
             }
         }
 
-        private void SaveSLDtoSpecifiedPath(string SLDobject)
+        private void SaveSLDtoSpecifiedPath(string sldObject)
         {
             this.folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowNewFolderButton = true;
@@ -265,8 +324,73 @@ namespace SLDExporter
             {
                 string path = String.Format(@"{0}\{1}.sld", folderBrowserDialog.SelectedPath, textBoxGSsldName.Text);
                 StreamWriter file = new System.IO.StreamWriter(path);
-                file.WriteLine(SLDobject);
+                file.WriteLine(sldObject);
                 file.Close();
+            }
+        }
+
+        private void comboBoxGSworkspaces_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string geoserverUrl = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/" + "{0}/datastores.xml", comboBoxGSworkspaces.Text);
+            var client = new RestClient(geoserverUrl);
+            client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+
+            try
+            {
+                var content = response.Content;
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(content.ToString());
+                XmlNodeList nodes = xmlDoc.DocumentElement.SelectNodes("/dataStores/dataStore");
+
+                string geoserverDataStore;
+                List<string> geoserverDataStoreList = new List<string>();
+
+                foreach (XmlNode node in nodes)
+                {
+                    geoserverDataStore = node.SelectSingleNode("name").InnerText;
+                    geoserverDataStoreList.Add(geoserverDataStore);
+                }
+
+                this.comboBoxGSdatastores.DataSource = geoserverDataStoreList;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Check connection parameters", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+        private void comboBoxGSdatastores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string geoserverUrl = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/" + "{0}/datastores/{1}/featuretypes.xml", comboBoxGSworkspaces.Text, comboBoxGSdatastores.Text);
+            var client = new RestClient(geoserverUrl);
+            client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+
+            try
+            {
+                var content = response.Content;
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(content.ToString());
+                XmlNodeList nodes = xmlDoc.DocumentElement.SelectNodes("/featureTypes/featureType");
+
+                string geoserverFeatureType;
+                List<string> geoserverFeatureTypeList = new List<string>();
+
+                foreach (XmlNode node in nodes)
+                {
+                    geoserverFeatureType = node.SelectSingleNode("name").InnerText;
+                    geoserverFeatureTypeList.Add(geoserverFeatureType);
+                }
+
+                this.comboBoxGSlayers.DataSource = geoserverFeatureTypeList;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Check connection parameters", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
