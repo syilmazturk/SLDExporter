@@ -68,7 +68,7 @@ namespace SLDExporter
         {
             InitializeComponent();
             textBoxGSurl.ForeColor = Color.LightGray;
-            textBoxGSurl.Text = "localhost:8080/geoserver";
+            textBoxGSurl.Text = "http://localhost:8080/geoserver";
             this.textBoxGSurl.Leave += new EventHandler(this.textBoxGSurl_Leave);
             this.textBoxGSurl.Enter += new EventHandler(this.textBoxGSurl_Enter);
 
@@ -93,14 +93,14 @@ namespace SLDExporter
         {
             if (textBoxGSurl.Text == "")
             {
-                textBoxGSurl.Text = "localhost:8080/geoserver";
+                textBoxGSurl.Text = "http://localhost:8080/geoserver";
                 textBoxGSurl.ForeColor = Color.Gray;
             }
         }
 
         private void textBoxGSurl_Enter(object sender, EventArgs e)
         {
-            if (textBoxGSurl.Text == "localhost:8080/geoserver")
+            if (textBoxGSurl.Text == "http://localhost:8080/geoserver")
             {
                 textBoxGSurl.Text = "";
                 textBoxGSurl.ForeColor = Color.Black;
@@ -122,7 +122,7 @@ namespace SLDExporter
             geoserverUsername = textBoxGSusername.Text.Trim();
             geoserverPassword = textBoxGSpassword.Text.Trim();
 
-            string geoserverUrl = "http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces.xml";
+            string geoserverUrl = textBoxGSurl.Text.Trim() + "/rest/workspaces.xml";
             var client = new RestClient(geoserverUrl);
             client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request = new RestRequest(Method.GET);
@@ -187,7 +187,7 @@ namespace SLDExporter
 
         private IRestResponse ApplyStyleToLayer()
         {
-            string geoserverUrl3 = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/layers/{0}:{1}", comboBoxGSworkspaces.Text, comboBoxGSlayers.Text);
+            string geoserverUrl3 = String.Format(textBoxGSurl.Text.Trim() + "/rest/layers/{0}:{1}", comboBoxGSworkspaces.Text, comboBoxGSlayers.Text);
             var client3 = new RestClient(geoserverUrl3);
             client3.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request3 = new RestRequest(Method.PUT);
@@ -201,7 +201,7 @@ namespace SLDExporter
         private void UploadStyleWithinWorkspace()
         {
             var sldToBeUploaded = File.ReadAllBytes(tempSLDpath);
-            string geoserverUrl2 = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles/{1}", comboBoxGSworkspaces.Text, textBoxGSsldName.Text);
+            string geoserverUrl2 = String.Format(textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles/{1}", comboBoxGSworkspaces.Text, textBoxGSsldName.Text);
             var client2 = new RestClient(geoserverUrl2);
             client2.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request2 = new RestRequest(Method.PUT);
@@ -212,7 +212,7 @@ namespace SLDExporter
 
         private void CreateStyleInWorkspace()
         {
-            string geoserverUrl = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles.xml", comboBoxGSworkspaces.Text);
+            string geoserverUrl = String.Format(textBoxGSurl.Text.Trim() + "/rest/workspaces/{0}/styles.xml", comboBoxGSworkspaces.Text);
             var client = new RestClient(geoserverUrl);
             client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request = new RestRequest(Method.POST);
@@ -264,8 +264,6 @@ namespace SLDExporter
                         {
                             SaveSLDtoSpecifiedPath(simpleSldXmlWithoutLabel);
                         }
-
-                        MessageBox.Show("Layer style has been successfully saved on the specified path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     
                 }
@@ -326,12 +324,13 @@ namespace SLDExporter
                 StreamWriter file = new System.IO.StreamWriter(path);
                 file.WriteLine(sldObject);
                 file.Close();
+                MessageBox.Show("Layer style has been successfully saved on the specified path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void comboBoxGSworkspaces_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string geoserverUrl = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/" + "{0}/datastores.xml", comboBoxGSworkspaces.Text);
+            string geoserverUrl = String.Format(textBoxGSurl.Text.Trim() + "/rest/workspaces/" + "{0}/datastores.xml", comboBoxGSworkspaces.Text);
             var client = new RestClient(geoserverUrl);
             client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request = new RestRequest(Method.GET);
@@ -364,7 +363,7 @@ namespace SLDExporter
 
         private void comboBoxGSdatastores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string geoserverUrl = String.Format("http://" + textBoxGSurl.Text.Trim() + "/rest/workspaces/" + "{0}/datastores/{1}/featuretypes.xml", comboBoxGSworkspaces.Text, comboBoxGSdatastores.Text);
+            string geoserverUrl = String.Format(textBoxGSurl.Text.Trim() + "/rest/workspaces/" + "{0}/datastores/{1}/featuretypes.xml", comboBoxGSworkspaces.Text, comboBoxGSdatastores.Text);
             var client = new RestClient(geoserverUrl);
             client.Authenticator = new HttpBasicAuthenticator(geoserverUsername, geoserverPassword);
             var request = new RestRequest(Method.GET);

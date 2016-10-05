@@ -15,7 +15,7 @@ namespace SLDExporter
         protected override void OnClick()
         {
             SLDExporterForm sldGUI = new SLDExporterForm();
-            sldGUI.ShowDialog();
+            sldGUI.Show();
 
             ArcMap.Application.CurrentTool = null;
         }

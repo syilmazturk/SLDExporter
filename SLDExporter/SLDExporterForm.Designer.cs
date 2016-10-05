@@ -79,7 +79,7 @@
             // labelGSdatastores
             // 
             this.labelGSdatastores.AutoSize = true;
-            this.labelGSdatastores.Location = new System.Drawing.Point(49, 217);
+            this.labelGSdatastores.Location = new System.Drawing.Point(34, 217);
             this.labelGSdatastores.Name = "labelGSdatastores";
             this.labelGSdatastores.Size = new System.Drawing.Size(154, 17);
             this.labelGSdatastores.TabIndex = 18;
@@ -89,16 +89,16 @@
             // 
             this.comboBoxGSdatastores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGSdatastores.FormattingEnabled = true;
-            this.comboBoxGSdatastores.Location = new System.Drawing.Point(230, 214);
+            this.comboBoxGSdatastores.Location = new System.Drawing.Point(219, 214);
             this.comboBoxGSdatastores.Name = "comboBoxGSdatastores";
-            this.comboBoxGSdatastores.Size = new System.Drawing.Size(180, 24);
+            this.comboBoxGSdatastores.Size = new System.Drawing.Size(191, 24);
             this.comboBoxGSdatastores.TabIndex = 17;
             this.comboBoxGSdatastores.SelectedIndexChanged += new System.EventHandler(this.comboBoxGSdatastores_SelectedIndexChanged);
             // 
             // labelGSurl
             // 
             this.labelGSurl.AutoSize = true;
-            this.labelGSurl.Location = new System.Drawing.Point(90, 53);
+            this.labelGSurl.Location = new System.Drawing.Point(75, 53);
             this.labelGSurl.Name = "labelGSurl";
             this.labelGSurl.Size = new System.Drawing.Size(113, 17);
             this.labelGSurl.TabIndex = 16;
@@ -106,15 +106,15 @@
             // 
             // textBoxGSurl
             // 
-            this.textBoxGSurl.Location = new System.Drawing.Point(230, 50);
+            this.textBoxGSurl.Location = new System.Drawing.Point(219, 50);
             this.textBoxGSurl.Name = "textBoxGSurl";
-            this.textBoxGSurl.Size = new System.Drawing.Size(180, 22);
+            this.textBoxGSurl.Size = new System.Drawing.Size(191, 22);
             this.textBoxGSurl.TabIndex = 1;
             // 
             // labelGSsldName
             // 
             this.labelGSsldName.AutoSize = true;
-            this.labelGSsldName.Location = new System.Drawing.Point(123, 277);
+            this.labelGSsldName.Location = new System.Drawing.Point(108, 277);
             this.labelGSsldName.Name = "labelGSsldName";
             this.labelGSsldName.Size = new System.Drawing.Size(80, 17);
             this.labelGSsldName.TabIndex = 12;
@@ -122,15 +122,15 @@
             // 
             // textBoxGSsldName
             // 
-            this.textBoxGSsldName.Location = new System.Drawing.Point(230, 274);
+            this.textBoxGSsldName.Location = new System.Drawing.Point(219, 274);
             this.textBoxGSsldName.Name = "textBoxGSsldName";
-            this.textBoxGSsldName.Size = new System.Drawing.Size(180, 22);
+            this.textBoxGSsldName.Size = new System.Drawing.Size(191, 22);
             this.textBoxGSsldName.TabIndex = 6;
             // 
             // labelGSworkspaces
             // 
             this.labelGSworkspaces.AutoSize = true;
-            this.labelGSworkspaces.Location = new System.Drawing.Point(40, 187);
+            this.labelGSworkspaces.Location = new System.Drawing.Point(25, 187);
             this.labelGSworkspaces.Name = "labelGSworkspaces";
             this.labelGSworkspaces.Size = new System.Drawing.Size(163, 17);
             this.labelGSworkspaces.TabIndex = 10;
@@ -140,9 +140,9 @@
             // 
             this.comboBoxGSworkspaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGSworkspaces.FormattingEnabled = true;
-            this.comboBoxGSworkspaces.Location = new System.Drawing.Point(230, 184);
+            this.comboBoxGSworkspaces.Location = new System.Drawing.Point(219, 184);
             this.comboBoxGSworkspaces.Name = "comboBoxGSworkspaces";
-            this.comboBoxGSworkspaces.Size = new System.Drawing.Size(180, 24);
+            this.comboBoxGSworkspaces.Size = new System.Drawing.Size(191, 24);
             this.comboBoxGSworkspaces.TabIndex = 5;
             this.comboBoxGSworkspaces.SelectedIndexChanged += new System.EventHandler(this.comboBoxGSworkspaces_SelectedIndexChanged);
             // 
@@ -159,7 +159,7 @@
             // labelGSlayers
             // 
             this.labelGSlayers.AutoSize = true;
-            this.labelGSlayers.Location = new System.Drawing.Point(75, 247);
+            this.labelGSlayers.Location = new System.Drawing.Point(60, 247);
             this.labelGSlayers.Name = "labelGSlayers";
             this.labelGSlayers.Size = new System.Drawing.Size(128, 17);
             this.labelGSlayers.TabIndex = 6;
@@ -169,16 +169,16 @@
             // 
             this.comboBoxGSlayers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGSlayers.FormattingEnabled = true;
-            this.comboBoxGSlayers.Location = new System.Drawing.Point(230, 244);
+            this.comboBoxGSlayers.Location = new System.Drawing.Point(219, 244);
             this.comboBoxGSlayers.Name = "comboBoxGSlayers";
-            this.comboBoxGSlayers.Size = new System.Drawing.Size(180, 24);
+            this.comboBoxGSlayers.Size = new System.Drawing.Size(191, 24);
             this.comboBoxGSlayers.TabIndex = 8;
             // 
             // buttonGSconnect
             // 
-            this.buttonGSconnect.Location = new System.Drawing.Point(309, 134);
+            this.buttonGSconnect.Location = new System.Drawing.Point(284, 134);
             this.buttonGSconnect.Name = "buttonGSconnect";
-            this.buttonGSconnect.Size = new System.Drawing.Size(101, 23);
+            this.buttonGSconnect.Size = new System.Drawing.Size(126, 23);
             this.buttonGSconnect.TabIndex = 4;
             this.buttonGSconnect.Text = "Connect";
             this.buttonGSconnect.UseVisualStyleBackColor = true;
@@ -187,7 +187,7 @@
             // labelGSpassword
             // 
             this.labelGSpassword.AutoSize = true;
-            this.labelGSpassword.Location = new System.Drawing.Point(130, 109);
+            this.labelGSpassword.Location = new System.Drawing.Point(115, 109);
             this.labelGSpassword.Name = "labelGSpassword";
             this.labelGSpassword.Size = new System.Drawing.Size(73, 17);
             this.labelGSpassword.TabIndex = 3;
@@ -196,7 +196,7 @@
             // labelGSusername
             // 
             this.labelGSusername.AutoSize = true;
-            this.labelGSusername.Location = new System.Drawing.Point(126, 81);
+            this.labelGSusername.Location = new System.Drawing.Point(111, 81);
             this.labelGSusername.Name = "labelGSusername";
             this.labelGSusername.Size = new System.Drawing.Size(77, 17);
             this.labelGSusername.TabIndex = 2;
@@ -205,17 +205,17 @@
             // 
             // textBoxGSpassword
             // 
-            this.textBoxGSpassword.Location = new System.Drawing.Point(230, 106);
+            this.textBoxGSpassword.Location = new System.Drawing.Point(219, 106);
             this.textBoxGSpassword.Name = "textBoxGSpassword";
-            this.textBoxGSpassword.Size = new System.Drawing.Size(180, 22);
+            this.textBoxGSpassword.Size = new System.Drawing.Size(191, 22);
             this.textBoxGSpassword.TabIndex = 3;
             this.textBoxGSpassword.UseSystemPasswordChar = true;
             // 
             // textBoxGSusername
             // 
-            this.textBoxGSusername.Location = new System.Drawing.Point(230, 78);
+            this.textBoxGSusername.Location = new System.Drawing.Point(219, 78);
             this.textBoxGSusername.Name = "textBoxGSusername";
-            this.textBoxGSusername.Size = new System.Drawing.Size(180, 22);
+            this.textBoxGSusername.Size = new System.Drawing.Size(191, 22);
             this.textBoxGSusername.TabIndex = 2;
             // 
             // buttonExportSLD
@@ -248,6 +248,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SLDExporterForm";
             this.Text = "SLDExporter";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.SLDExporterForm_Load);
             this.groupBoxPublishSLD.ResumeLayout(false);
             this.groupBoxPublishSLD.PerformLayout();
