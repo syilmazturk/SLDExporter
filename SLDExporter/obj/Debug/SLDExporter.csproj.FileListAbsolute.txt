@@ -1,0 +1,11 @@
+c:\users\seroman\documents\visual studio 2013\Projects\SLDExporter\SLDExporter\bin\Debug\SLDExporter.dll
+c:\users\seroman\documents\visual studio 2013\Projects\SLDExporter\SLDExporter\bin\Debug\SLDExporter.pdb
+c:\users\seroman\documents\visual studio 2013\Projects\SLDExporter\SLDExporter\obj\Debug\SLDExporter.csprojResolveAssemblyReference.cache
+c:\users\seroman\documents\visual studio 2013\Projects\SLDExporter\SLDExporter\obj\Debug\SLDExporter.dll
+c:\users\seroman\documents\visual studio 2013\Projects\SLDExporter\SLDExporter\obj\Debug\SLDExporter.pdb
+C:\Users\seroman\Documents\Visual Studio 2013\Projects\SLDExporter\SLDExporter\obj\Debug\SLDExporter.SLDExporterForm.resources
+C:\Users\seroman\Documents\Visual Studio 2013\Projects\SLDExporter\SLDExporter\obj\Debug\SLDExporter.SLDExporterResource.resources
+C:\Users\seroman\Documents\Visual Studio 2013\Projects\SLDExporter\SLDExporter\obj\Debug\SLDExporter.csproj.GenerateResource.Cache
+C:\Users\seroman\Documents\Visual Studio 2013\Projects\SLDExporter\SLDExporter\bin\Debug\RestSharp.dll
+C:\Users\seroman\Documents\Visual Studio 2013\Projects\SLDExporter\SLDExporter\bin\Debug\RestSharp.xml
+C:\Users\seroman\Documents\Visual Studio 2013\Projects\SLDExporter\SLDExporter\bin\Debug\SLDExporter.esriAddIn
