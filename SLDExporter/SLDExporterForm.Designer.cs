@@ -55,6 +55,7 @@
             // 
             this.groupBoxPublishSLD.Controls.Add(this.labelGSdatastores);
             this.groupBoxPublishSLD.Controls.Add(this.comboBoxGSdatastores);
+            this.groupBoxPublishSLD.Controls.Add(this.buttonExportSLD);
             this.groupBoxPublishSLD.Controls.Add(this.labelGSurl);
             this.groupBoxPublishSLD.Controls.Add(this.textBoxGSurl);
             this.groupBoxPublishSLD.Controls.Add(this.labelGSsldName);
@@ -71,7 +72,7 @@
             this.groupBoxPublishSLD.Controls.Add(this.textBoxGSusername);
             this.groupBoxPublishSLD.Location = new System.Drawing.Point(12, 85);
             this.groupBoxPublishSLD.Name = "groupBoxPublishSLD";
-            this.groupBoxPublishSLD.Size = new System.Drawing.Size(416, 337);
+            this.groupBoxPublishSLD.Size = new System.Drawing.Size(416, 340);
             this.groupBoxPublishSLD.TabIndex = 1;
             this.groupBoxPublishSLD.TabStop = false;
             this.groupBoxPublishSLD.Text = "Create SLD style on published GeoServer Layer";
@@ -148,11 +149,11 @@
             // 
             // buttonGSpublishSLD
             // 
-            this.buttonGSpublishSLD.Location = new System.Drawing.Point(284, 302);
+            this.buttonGSpublishSLD.Location = new System.Drawing.Point(314, 302);
             this.buttonGSpublishSLD.Name = "buttonGSpublishSLD";
-            this.buttonGSpublishSLD.Size = new System.Drawing.Size(126, 23);
+            this.buttonGSpublishSLD.Size = new System.Drawing.Size(96, 25);
             this.buttonGSpublishSLD.TabIndex = 7;
-            this.buttonGSpublishSLD.Text = "Publish SLD";
+            this.buttonGSpublishSLD.Text = "Publish";
             this.buttonGSpublishSLD.UseVisualStyleBackColor = true;
             this.buttonGSpublishSLD.Click += new System.EventHandler(this.buttonGSpublishSLD_Click);
             // 
@@ -176,9 +177,9 @@
             // 
             // buttonGSconnect
             // 
-            this.buttonGSconnect.Location = new System.Drawing.Point(284, 134);
+            this.buttonGSconnect.Location = new System.Drawing.Point(314, 134);
             this.buttonGSconnect.Name = "buttonGSconnect";
-            this.buttonGSconnect.Size = new System.Drawing.Size(126, 23);
+            this.buttonGSconnect.Size = new System.Drawing.Size(96, 25);
             this.buttonGSconnect.TabIndex = 4;
             this.buttonGSconnect.Text = "Connect";
             this.buttonGSconnect.UseVisualStyleBackColor = true;
@@ -220,11 +221,11 @@
             // 
             // buttonExportSLD
             // 
-            this.buttonExportSLD.Location = new System.Drawing.Point(12, 12);
+            this.buttonExportSLD.Location = new System.Drawing.Point(219, 302);
             this.buttonExportSLD.Name = "buttonExportSLD";
-            this.buttonExportSLD.Size = new System.Drawing.Size(167, 50);
+            this.buttonExportSLD.Size = new System.Drawing.Size(89, 25);
             this.buttonExportSLD.TabIndex = 0;
-            this.buttonExportSLD.Text = "Export SLD as XML";
+            this.buttonExportSLD.Text = "Export";
             this.buttonExportSLD.UseVisualStyleBackColor = true;
             this.buttonExportSLD.Click += new System.EventHandler(this.buttonExportSLD_Click);
             // 
@@ -241,10 +242,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 433);
+            this.ClientSize = new System.Drawing.Size(440, 432);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBoxPublishSLD);
-            this.Controls.Add(this.buttonExportSLD);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SLDExporterForm";
             this.Text = "SLDExporter";
