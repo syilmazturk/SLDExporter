@@ -31,6 +31,7 @@
             this.groupBoxPublishSLD = new System.Windows.Forms.GroupBox();
             this.labelGSdatastores = new System.Windows.Forms.Label();
             this.comboBoxGSdatastores = new System.Windows.Forms.ComboBox();
+            this.buttonExportSLD = new System.Windows.Forms.Button();
             this.labelGSurl = new System.Windows.Forms.Label();
             this.textBoxGSurl = new System.Windows.Forms.TextBox();
             this.labelGSsldName = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@
             this.labelGSusername = new System.Windows.Forms.Label();
             this.textBoxGSpassword = new System.Windows.Forms.TextBox();
             this.textBoxGSusername = new System.Windows.Forms.TextBox();
-            this.buttonExportSLD = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBoxPublishSLD.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -95,6 +95,16 @@
             this.comboBoxGSdatastores.Size = new System.Drawing.Size(191, 24);
             this.comboBoxGSdatastores.TabIndex = 17;
             this.comboBoxGSdatastores.SelectedIndexChanged += new System.EventHandler(this.comboBoxGSdatastores_SelectedIndexChanged);
+            // 
+            // buttonExportSLD
+            // 
+            this.buttonExportSLD.Location = new System.Drawing.Point(219, 302);
+            this.buttonExportSLD.Name = "buttonExportSLD";
+            this.buttonExportSLD.Size = new System.Drawing.Size(89, 25);
+            this.buttonExportSLD.TabIndex = 0;
+            this.buttonExportSLD.Text = "Export";
+            this.buttonExportSLD.UseVisualStyleBackColor = true;
+            this.buttonExportSLD.Click += new System.EventHandler(this.buttonExportSLD_Click);
             // 
             // labelGSurl
             // 
@@ -219,16 +229,6 @@
             this.textBoxGSusername.Size = new System.Drawing.Size(191, 22);
             this.textBoxGSusername.TabIndex = 2;
             // 
-            // buttonExportSLD
-            // 
-            this.buttonExportSLD.Location = new System.Drawing.Point(219, 302);
-            this.buttonExportSLD.Name = "buttonExportSLD";
-            this.buttonExportSLD.Size = new System.Drawing.Size(89, 25);
-            this.buttonExportSLD.TabIndex = 0;
-            this.buttonExportSLD.Text = "Export";
-            this.buttonExportSLD.UseVisualStyleBackColor = true;
-            this.buttonExportSLD.Click += new System.EventHandler(this.buttonExportSLD_Click);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::SLDExporter.SLDExporterResource.gServerLogo;
@@ -240,8 +240,8 @@
             // 
             // SLDExporterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(440, 432);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBoxPublishSLD);
